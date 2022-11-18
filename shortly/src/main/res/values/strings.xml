@@ -3,4 +3,6 @@
 
     <string name="main_body_header">Let\'s get started!</string>
     <string name="main_body">Paste your first link into the field to shorten it</string>
+    <string name="main_button_shorten_it">shorten it!</string>
+    <string name="main_input_hint">Shorten a link here …</string>
 </resources>
