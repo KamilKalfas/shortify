@@ -3,6 +3,7 @@
     package="com.kkalfas.shortly">
 
     <application
+        android:name=".ShortlyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.Design.NoActionBar">

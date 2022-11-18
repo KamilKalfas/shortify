@@ -11,10 +11,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -33,9 +29,10 @@ import com.kkalfas.shortly.presentation.components.text.InputField
 @Composable
 fun FooterContent(
     modifier: Modifier = Modifier,
+    inputValue: String,
+    onInputChanged: (String) -> Unit,
     onPrimaryButtonClick: () -> Unit
 ) {
-    var url by remember { mutableStateOf(TextFieldValue("")) }
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
     val keyboardActions = KeyboardActions(
@@ -58,10 +55,10 @@ fun FooterContent(
         verticalArrangement = Arrangement.Center
     ) {
         InputField(
-            value = url,
+            value = TextFieldValue(inputValue),
             onValueChange = { value ->
                 // TODO validation
-                url = value
+                onInputChanged(value.text)
             },
             hint = stringResource(id = R.string.main_input_hint),
             keyboardActions = keyboardActions

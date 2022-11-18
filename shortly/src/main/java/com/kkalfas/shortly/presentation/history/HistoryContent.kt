@@ -30,14 +30,17 @@ private fun PreviewEmptyHistoryContent() {
         Modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.backgroundSecondary)) {
-        HistoryContent(modifier = Modifier.fillMaxHeight(.75f))
+        HistoryContent(
+            modifier = Modifier.fillMaxHeight(.75f),
+            state = HistoryUiState("")
+        )
     }
 }
 
 @Composable
 fun HistoryContent(
     modifier: Modifier,
-    history: List<String> = emptyList()
+    state: HistoryUiState
 ) {
     Column(
         modifier = modifier
@@ -45,7 +48,7 @@ fun HistoryContent(
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (history.isEmpty()) GetStarted()
+        if (state.history.isEmpty()) GetStarted()
         else LinkHistory()
     }
 }
