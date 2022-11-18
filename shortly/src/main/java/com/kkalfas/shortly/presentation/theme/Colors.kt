@@ -9,7 +9,7 @@ val LightThemeColors = lightColors(
     primaryVariant = Color(0xFF3B3054),
     secondary = Color(0xFF3B3054),
     background = Color.White,
-
+    onBackground = Color(0xFF35323E)
 )
 
 val Colors.backgroundSecondary: Color

@@ -11,14 +11,7 @@ import com.kkalfas.shortly.R
 // app fonts family
 val shortlyFonts = FontFamily(
     Font(R.font.poppins_bold, FontWeight.Bold),
-    Font(R.font.poppins_black, FontWeight.Black),
-    Font(R.font.poppins_extrabold, FontWeight.ExtraBold),
-    Font(R.font.poppins_extralight, FontWeight.ExtraLight),
-    Font(R.font.poppins_light, FontWeight.Light),
     Font(R.font.poppins_medium, FontWeight.Medium),
-    Font(R.font.poppins_regular, FontWeight.Normal),
-    Font(R.font.poppins_semibold, FontWeight.SemiBold),
-    Font(R.font.poppins_thin, FontWeight.Thin)
 )
 
 // Set of Material typography styles to start with
@@ -27,11 +20,13 @@ val ShortlyTypography = Typography(
     h6 = TextStyle(
         fontWeight = FontWeight.Bold,
         fontSize = 20.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.15.sp
     ),
     body1 = TextStyle(
         fontWeight = FontWeight.Medium,
         fontSize = 17.sp,
+        lineHeight = 22.sp,
         letterSpacing = 0.5.sp
     )
 )
