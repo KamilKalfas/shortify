@@ -29,10 +29,9 @@ import androidx.compose.ui.unit.dp
 import com.kkalfas.shortly.R
 import com.kkalfas.shortly.presentation.components.text.InputField
 
-// takes 25% of visible space
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun Footer(
+fun FooterContent(
     modifier: Modifier = Modifier,
     onPrimaryButtonClick: () -> Unit
 ) {
