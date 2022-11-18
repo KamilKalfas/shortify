@@ -29,9 +29,10 @@ import com.kkalfas.shortly.presentation.components.text.InputField
 @Composable
 fun FooterContent(
     modifier: Modifier = Modifier,
+    isLandscape: Boolean = false,
     inputValue: String,
     onInputChanged: (String) -> Unit,
-    onPrimaryButtonClick: () -> Unit
+    onPrimaryButtonClick: () -> Unit,
 ) {
     val focusManager = LocalFocusManager.current
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -50,7 +51,7 @@ fun FooterContent(
                 painterResource(id = R.drawable.ic_shape),
                 alignment = Alignment.TopEnd
             )
-            .padding(horizontal = 48.dp),
+            .padding(horizontal = if (isLandscape) 120.dp else 48.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
