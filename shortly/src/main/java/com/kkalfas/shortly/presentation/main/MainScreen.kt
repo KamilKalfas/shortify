@@ -56,9 +56,7 @@ fun MainScreen(
                     .navigationBarsPadding(),
                 state = stateFlow,
                 onUrlChanged = viewModel::onUrlChanged,
-                onPrimaryButtonClick = {
-                    //TODO
-                }
+                onPrimaryButtonClick = viewModel::onShortenUrl
             )
         }
     )
