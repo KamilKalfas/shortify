@@ -1,6 +1,6 @@
 package com.kkalfas.shortly.data.history.api
 
-import com.kkalfas.shortly.data.history.model.network.ShrtcoApiResponse
+import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResponse
 import com.kkalfas.shortly.mocks.InternalServerError
 import com.kkalfas.shortly.mocks.MockKtorHttpClientAdapter
 import com.kkalfas.shortly.mocks.MockkTest

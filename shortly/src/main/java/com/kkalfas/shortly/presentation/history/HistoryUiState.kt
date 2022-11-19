@@ -1,8 +1,8 @@
 package com.kkalfas.shortly.presentation.history
 
-import com.kkalfas.shortly.data.history.model.entities.LinkEntity
+import com.kkalfas.shortly.data.history.model.LinkEntryModel
 
 data class HistoryUiState(
     val urlInput: String,
-    val history: List<LinkEntity> = emptyList()
+    val history: List<LinkEntryModel> = emptyList()
 )

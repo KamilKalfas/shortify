@@ -1,7 +1,7 @@
 package com.kkalfas.shortly.data.history.source
 
 import com.kkalfas.shortly.data.history.api.ShrtcoApi
-import com.kkalfas.shortly.data.history.model.entities.LinkEntity
+import com.kkalfas.shortly.data.history.model.LinkEntryModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 import javax.inject.Inject
@@ -20,5 +20,5 @@ class RemoteHistoryDataSource @Inject constructor(
     }
 
     // noop for Remote
-    override fun getLinkHistory(): Flow<List<LinkEntity>> = emptyFlow()
+    override fun getLinkHistory(): Flow<List<LinkEntryModel>> = emptyFlow()
 }

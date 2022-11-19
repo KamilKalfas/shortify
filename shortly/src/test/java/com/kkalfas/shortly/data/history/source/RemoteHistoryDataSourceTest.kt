@@ -1,9 +1,8 @@
 package com.kkalfas.shortly.data.history.source
 
 import com.kkalfas.shortly.data.history.api.ShrtcoApi
-import com.kkalfas.shortly.data.history.model.entities.LinkEntity
-import com.kkalfas.shortly.data.history.model.network.ShrtcoApiResponse
-import com.kkalfas.shortly.data.history.model.network.ShrtcoApiResult
+import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResponse
+import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResult
 import com.kkalfas.shortly.mocks.MockkTest
 import io.mockk.coEvery
 import io.mockk.coVerify

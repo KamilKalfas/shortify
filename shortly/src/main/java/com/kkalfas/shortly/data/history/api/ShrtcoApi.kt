@@ -1,5 +1,5 @@
 package com.kkalfas.shortly.data.history.api
-import com.kkalfas.shortly.data.history.model.network.ShrtcoApiResponse
+import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResponse
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*

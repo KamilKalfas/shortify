@@ -23,7 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kkalfas.shortly.R
 import com.kkalfas.shortly.copyTextToClipboard
-import com.kkalfas.shortly.data.history.model.entities.LinkEntity
+import com.kkalfas.shortly.data.history.model.LinkEntryModel
 import com.kkalfas.shortly.presentation.components.CopyButton
 import com.kkalfas.shortly.presentation.components.text.LinkCardText
 import com.kkalfas.shortly.presentation.components.text.ShortLinkCardText
@@ -35,7 +35,7 @@ import com.kkalfas.shortly.presentation.theme.divider
 private fun PreviewEmptyHistoryContent() {
     ShortlyTheme {
         LinkCard(
-            linkEntity = LinkEntity(
+            linkEntity = LinkEntryModel(
                 original = "http://somewhere.on/the/intra/webz",
                 short = "http://its.so/sh0rt"
             )
@@ -46,7 +46,7 @@ private fun PreviewEmptyHistoryContent() {
 @Composable
 fun LinkCard(
     modifier: Modifier = Modifier,
-    linkEntity: LinkEntity
+    linkEntity: LinkEntryModel
 ) {
     Column(
         modifier = modifier

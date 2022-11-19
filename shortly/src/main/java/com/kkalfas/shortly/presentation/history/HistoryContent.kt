@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kkalfas.shortly.R
-import com.kkalfas.shortly.data.history.model.entities.LinkEntity
+import com.kkalfas.shortly.data.history.model.LinkEntryModel
 import com.kkalfas.shortly.presentation.components.text.Body1
 import com.kkalfas.shortly.presentation.theme.ShortlyTheme
 import com.kkalfas.shortly.presentation.theme.backgroundSecondary
@@ -28,7 +28,7 @@ import com.kkalfas.shortly.presentation.theme.backgroundSecondary
 @Preview(showSystemUi = true)
 @Composable
 private fun PreviewHistory() {
-    val linkEntity = LinkEntity(
+    val linkModel = LinkEntryModel(
         short = "https://short.link/d78tda",
         original = "https://wow.com/such/a/long/url/much/wow"
     )
@@ -42,7 +42,7 @@ private fun PreviewHistory() {
                 modifier = Modifier.fillMaxHeight(.75f),
                 state = HistoryUiState(
                     urlInput = "",
-                    history = listOf(linkEntity, linkEntity, linkEntity)
+                    history = listOf(linkModel, linkModel, linkModel)
                 )
             )
         }
@@ -67,7 +67,7 @@ fun HistoryContent(
 
 @Composable
 private fun LinkHistory(
-    history: List<LinkEntity>,
+    history: List<LinkEntryModel>,
 ) {
     Spacer(modifier = Modifier.height(4.dp))
     Body1(text = stringResource(id = R.string.history_title))

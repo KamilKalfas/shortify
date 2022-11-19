@@ -1,6 +1,6 @@
 package com.kkalfas.shortly.data.history.source
 
-import com.kkalfas.shortly.data.history.model.entities.LinkEntity
+import com.kkalfas.shortly.data.history.model.LinkEntryModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -10,7 +10,7 @@ class LocalHistoryDataSource : HistoryDataSource {
          // noop for Local
     }
 
-    override fun getLinkHistory(): Flow<List<LinkEntity>> = flow {
+    override fun getLinkHistory(): Flow<List<LinkEntryModel>> = flow {
 
     }
 }

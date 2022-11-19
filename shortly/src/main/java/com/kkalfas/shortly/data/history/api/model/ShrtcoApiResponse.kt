@@ -1,4 +1,4 @@
-package com.kkalfas.shortly.data.history.model.network
+package com.kkalfas.shortly.data.history.api.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
