@@ -1,7 +1,7 @@
 package com.kkalfas.shortly.di
 
 import com.kkalfas.shortly.AppCoroutineDispatchers
-import com.kkalfas.shortly.KtorHttpClientProvider
+import com.kkalfas.shortly.KtorHttpClientAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +25,5 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(): HttpClient = KtorHttpClientProvider.Impl().provide(Android.create())
+    fun provideHttpClient(): HttpClient = KtorHttpClientAdapter.Impl(Android.create()).client
 }

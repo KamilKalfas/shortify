@@ -84,7 +84,19 @@ dependencies {
     implementation "io.ktor:ktor-serialization-kotlinx-json:$ktorVersion"
     implementation "io.ktor:ktor-client-logging:$ktorVersion"
 
+    // TEST Ktor mock engine
+    testImplementation "io.ktor:ktor-client-mock:$ktorVersion"
+
+    // TEST Junit
     testImplementation 'junit:junit:4.13.2'
+
+    // TEST Mockk
+    var mockkVersion = "1.12.4"
+    testImplementation "io.mockk:mockk:${mockkVersion}"
+    testImplementation "io.mockk:mockk-agent-jvm:${mockkVersion}"
+
+    // TEST assertJ
+    testImplementation "org.assertj:assertj-core:3.11.1"
 }
 
 kapt {

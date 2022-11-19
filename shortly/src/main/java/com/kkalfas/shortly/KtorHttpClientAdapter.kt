@@ -13,12 +13,12 @@ import kotlinx.serialization.json.Json
 /**
  * Abstraction layer allowing to change [HttpClient] implementation
  */
-interface KtorHttpClientProvider {
-    fun provide(engine: HttpClientEngine) : HttpClient
+interface KtorHttpClientAdapter {
+    val client: HttpClient
 
-    class Impl : KtorHttpClientProvider {
-        override fun provide(engine: HttpClientEngine): HttpClient {
-            return HttpClient(engine) {
+    class Impl(engine: HttpClientEngine) : KtorHttpClientAdapter {
+        override val client: HttpClient by lazy {
+            HttpClient(engine) {
                 install(UserAgent) { agent = "ktor" }
                 installDefaultHeaders()
                 installJSONSerialization()
