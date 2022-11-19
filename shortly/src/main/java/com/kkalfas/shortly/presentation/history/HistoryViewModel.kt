@@ -37,10 +37,8 @@ class HistoryViewModel @Inject constructor(
 
     fun onShortenUrl() {
         viewModelScope.launch(appCoroutineDispatchers.io) {
-            val link = shortenUrlUseCase.invoke(state.value.urlInput)
-            state.update { prevState ->
-                prevState.copy(history = listOf(link))
-            }
+            shortenUrlUseCase.invoke(state.value.urlInput)
+            // TODO load history
         }
     }
 }

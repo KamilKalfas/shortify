@@ -1,6 +1,5 @@
 package com.kkalfas.shortly.data.history.repository
 
-import com.kkalfas.shortly.data.history.model.entities.LinkEntity
 import com.kkalfas.shortly.data.history.source.HistoryDataSource
 import com.kkalfas.shortly.mocks.MockkTest
 import io.mockk.coEvery
@@ -20,20 +19,16 @@ class HistoryRepositoryTest : MockkTest() {
         // given
         val slotUrl = slot<String>()
         val givenUrl = "http://somewhere.on/the/intra/webz"
-        val expectedEntity = LinkEntity(
-            original = givenUrl,
-            short = "http://its.so/sh0rt"
-        )
-        coEvery { remoteDataSource.getShortUrl(givenUrl) } returns expectedEntity
+
+        coEvery { remoteDataSource.shortenUrl(givenUrl) }
 
         // when
         val result = runBlocking { subject.shortenUrl(givenUrl) }
 
         // then
         coVerify {
-            remoteDataSource.getShortUrl(capture(slotUrl))
+            remoteDataSource.shortenUrl(capture(slotUrl))
         }
         Assertions.assertThat(slotUrl.captured).isEqualTo(givenUrl)
-        Assertions.assertThat(result).isEqualTo(expectedEntity)
     }
 }

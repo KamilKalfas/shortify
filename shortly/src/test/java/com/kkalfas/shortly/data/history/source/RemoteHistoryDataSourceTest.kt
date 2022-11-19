@@ -18,7 +18,7 @@ class RemoteHistoryDataSourceTest : MockkTest() {
     private val subject = RemoteHistoryDataSource(api)
 
     @Test
-    fun `given API returns response when getShortUrl then return mapped object`() {
+    fun `given API returns response when shortenUrl then return mapped object`() {
         // given
         val slotUrl = slot<String>()
         val givenUrl = "http://somewhere.on/the/intra/webz"
@@ -33,16 +33,12 @@ class RemoteHistoryDataSourceTest : MockkTest() {
         coEvery { api.getShortenUrl(givenUrl) } returns apiResponse
 
         // when
-        val result = runBlocking { subject.getShortUrl(givenUrl) }
+        val result = runBlocking { subject.shortenUrl(givenUrl) }
 
         // then
         coVerify {
             api.getShortenUrl(capture(slotUrl))
         }
         assertThat(slotUrl.captured).isEqualTo(givenUrl)
-        assertThat(result).isInstanceOfSatisfying(LinkEntity::class.java) {
-            assertThat(it.short).isEqualTo(apiResponse.result.shortLink)
-            assertThat(it.original).isEqualTo(apiResponse.result.original)
-        }
     }
 }
