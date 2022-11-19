@@ -22,3 +22,5 @@ val Colors.grayishViolet : Color
     get() = Color(0xFF35323E)
 val Colors.veryDarkVioletViolet : Color
     get() = Color(0xFF232127)
+val Colors.divider: Color
+    get() = Color(0XFFBFBFBF)
