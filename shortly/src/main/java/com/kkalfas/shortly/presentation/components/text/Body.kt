@@ -30,6 +30,6 @@ fun Body1(
 @Composable
 private fun PreviewBody1() {
     ShortlyTheme {
-        Body1(text = stringResource(id = R.string.main_body))
+        Body1(text = stringResource(id = R.string.getting_started_body))
     }
 }

@@ -61,14 +61,14 @@ fun FooterContent(
                 // TODO validation
                 onInputChanged(value.text)
             },
-            hint = stringResource(id = R.string.main_input_hint),
+            hint = stringResource(id = R.string.footer_input_hint),
             keyboardActions = keyboardActions
         )
         Spacer(modifier = Modifier.height(8.dp))
         PrimaryButton(
             modifier = Modifier
                 .fillMaxWidth(),
-            label = stringResource(id = R.string.main_button_shorten_it),
+            label = stringResource(id = R.string.footer_button_shorten_it),
             onClick = onPrimaryButtonClick
         )
     }

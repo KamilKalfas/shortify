@@ -31,6 +31,6 @@ fun Placeholder(
 @Composable
 private fun PreviewPlaceholder() {
     ShortlyTheme {
-        Body1(text = stringResource(id = R.string.main_input_hint))
+        Body1(text = stringResource(id = R.string.footer_input_hint))
     }
 }
