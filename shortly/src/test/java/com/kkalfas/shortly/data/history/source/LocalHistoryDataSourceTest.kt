@@ -60,8 +60,10 @@ class LocalHistoryDataSourceTest : MockkTest() {
         every { databaseAdapter.getLinkHistoryStream() } returns flowOf(listOf(link0, link1))
 
         // when
+        val flow = subject.getLinkHistory()
+
+        // then
         runBlocking {
-            val flow = subject.getLinkHistory()
             flow.collect {
                 assertThat(it.size).isEqualTo(2)
                 assertThat(it[0].original).isEqualTo(link0.original)
@@ -70,8 +72,6 @@ class LocalHistoryDataSourceTest : MockkTest() {
                 assertThat(it[1].short).isEqualTo(link1.shorted)
             }
         }
-
-        // then
         verify {
             databaseAdapter.getLinkHistoryStream()
         }

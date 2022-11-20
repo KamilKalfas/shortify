@@ -34,7 +34,7 @@ private fun PreviewMainContent() {
     ShortlyTheme {
         MainContent(
             modifier = Modifier.background(MaterialTheme.colors.background),
-            state = HistoryUiState(""),
+            state = HistoryUiState(),
             onUrlChanged = {},
             onPrimaryButtonClick = {}
         )
