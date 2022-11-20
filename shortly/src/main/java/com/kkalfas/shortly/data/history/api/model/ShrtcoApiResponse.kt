@@ -6,6 +6,8 @@ import kotlinx.serialization.Serializable
 /**
 {
     "ok": true,
+    "error_code": 1,
+    "error": "No url parameter set. Make a GET or POST request with a `url` parameter containing a URL you want to shorten. For more infos see shrtco.de/docs"
     "result": {
         "code": "AHkW47",
         "short_link": "shrtco.de\/AHkW47",
@@ -24,7 +26,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ShrtcoApiResponse(
     @SerialName("ok") val ok: Boolean,
-    @SerialName("result") val result: ShrtcoApiResult
+    @SerialName("error_code") val error: Int?,
+    @SerialName("error") val errorMessage: String?,
+    @SerialName("result") val result: ShrtcoApiResult?
 )
 
 @Serializable

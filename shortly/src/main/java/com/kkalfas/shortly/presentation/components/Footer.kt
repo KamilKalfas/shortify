@@ -31,6 +31,7 @@ fun FooterContent(
     modifier: Modifier = Modifier,
     isLandscape: Boolean = false,
     inputValue: String,
+    isInputError: Boolean,
     onInputChanged: (String) -> Unit,
     onPrimaryButtonClick: () -> Unit,
 ) {
@@ -57,11 +58,9 @@ fun FooterContent(
     ) {
         InputField(
             value = TextFieldValue(inputValue),
-            onValueChange = { value ->
-                // TODO validation
-                onInputChanged(value.text)
-            },
+            onValueChange = { value -> onInputChanged(value.text) },
             hint = stringResource(id = R.string.footer_input_hint),
+            isError = isInputError,
             keyboardActions = keyboardActions
         )
         Spacer(modifier = Modifier.height(8.dp))

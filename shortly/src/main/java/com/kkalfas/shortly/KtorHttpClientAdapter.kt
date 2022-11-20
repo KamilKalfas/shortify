@@ -8,6 +8,7 @@ import io.ktor.client.plugins.logging.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 
 /**
@@ -35,6 +36,7 @@ interface KtorHttpClientAdapter {
 /**
  * Extracted to have same implementation if MockEngine used
  */
+@OptIn(ExperimentalSerializationApi::class)
 fun HttpClientConfig<*>.installJSONSerialization() {
     install(ContentNegotiation) {
         json(
@@ -42,6 +44,7 @@ fun HttpClientConfig<*>.installJSONSerialization() {
                 prettyPrint = true
                 isLenient = true
                 ignoreUnknownKeys = true
+                explicitNulls = false
             }
         )
     }

@@ -1,6 +1,7 @@
 package com.kkalfas.shortly.data.history.source
 
 import com.kkalfas.shortly.data.FunctionalityNotAvailable
+import com.kkalfas.shortly.data.ShrtcoApiError
 import com.kkalfas.shortly.data.history.api.ShrtcoApi
 import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResponse
 import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResult
@@ -8,6 +9,7 @@ import com.kkalfas.shortly.data.history.database.HistoryDatabaseAdapter
 import com.kkalfas.shortly.data.history.database.model.LinkHistoryEntity
 import com.kkalfas.shortly.mocks.MockkTest
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.coVerifyOrder
 import io.mockk.slot
 import kotlinx.coroutines.runBlocking
@@ -28,6 +30,8 @@ class RemoteHistoryDataSourceTest : MockkTest() {
         val givenUrl = "http://somewhere.on/the/intra/webz"
         val apiResponse = ShrtcoApiResponse(
             ok = true,
+            error = null,
+            errorMessage = null,
             result = ShrtcoApiResult(
                 code = "sh0rt",
                 original = givenUrl,
@@ -46,10 +50,37 @@ class RemoteHistoryDataSourceTest : MockkTest() {
         }
         assertThat(slotUrl.captured).isEqualTo(givenUrl)
         with(slotEntity.captured) {
-            assertThat(this.code).isEqualTo(apiResponse.result.code)
-            assertThat(this.original).isEqualTo(apiResponse.result.original)
-            assertThat(this.shorted).isEqualTo(apiResponse.result.shortLink)
+            val result = requireNotNull(apiResponse.result)
+            assertThat(this.code).isEqualTo(result.code)
+            assertThat(this.original).isEqualTo(result.original)
+            assertThat(this.shorted).isEqualTo(result.shortLink)
         }
+    }
+
+    @Test(expected = ShrtcoApiError::class)
+    fun `given API returns error when shortenUrl then exception is thrown`() {
+        // given
+        val slotUrl = slot<String>()
+        val givenUrl = "http://somewhere.on/the/intra/webz"
+        val apiResponse = ShrtcoApiResponse(
+            ok = false,
+            error = 1,
+            errorMessage = "error",
+            result = null
+        )
+        coEvery { api.getShortenUrl(givenUrl) } returns apiResponse
+
+        // when
+        runBlocking { subject.shortenUrl(givenUrl) }
+
+        // then
+        coVerifyOrder {
+            api.getShortenUrl(capture(slotUrl))
+        }
+        coVerify(exactly = 0) {
+            databaseAdapter.saveLink(any())
+        }
+        assertThat(slotUrl.captured).isEqualTo(givenUrl)
     }
 
     @Test(expected = FunctionalityNotAvailable::class)

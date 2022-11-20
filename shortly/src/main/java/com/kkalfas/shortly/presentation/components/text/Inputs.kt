@@ -1,6 +1,7 @@
 package com.kkalfas.shortly.presentation.components.text
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.defaultMinSize
@@ -27,10 +28,12 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.graphics.takeOrElse
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import com.kkalfas.shortly.R
 import com.kkalfas.shortly.presentation.theme.grayishViolet
 import com.kkalfas.shortly.presentation.theme.lightGray
 
@@ -40,6 +43,7 @@ fun InputField(
     value: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
     hint: String,
+    isError: Boolean = false,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default
@@ -62,6 +66,8 @@ fun InputField(
 
     var colors by remember { mutableStateOf(inputUnFocusedColors) }
     var textFieldValue by remember { mutableStateOf(value) }
+    val (placeholderText, placeholderTextColor) = if (isError) stringResource(id = R.string.footer_input_error) to MaterialTheme.colors.error
+    else hint to MaterialTheme.colors.lightGray
     TextFieldWithoutPadding(
         modifier = modifier
             .fillMaxWidth()
@@ -77,9 +83,11 @@ fun InputField(
         placeholder = {
             Placeholder(
                 modifier = Modifier.fillMaxWidth(),
-                text = hint,
+                text = placeholderText,
+                textColor = placeholderTextColor
             )
         },
+        isError = isError,
         singleLine = true,
         colors = colors,
         visualTransformation = visualTransformation,
@@ -134,7 +142,7 @@ private fun TextFieldWithoutPadding(
             .defaultMinSize(
                 minWidth = TextFieldDefaults.MinWidth,
                 minHeight = TextFieldHeight
-            ),
+            ).border(1.dp, if (isError) MaterialTheme.colors.error else Color.Transparent),
         onValueChange = onValueChange,
         enabled = enabled,
         readOnly = readOnly,
