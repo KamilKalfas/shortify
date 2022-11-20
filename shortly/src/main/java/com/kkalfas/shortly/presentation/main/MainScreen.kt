@@ -39,7 +39,8 @@ private fun PreviewMainContent() {
             modifier = Modifier.background(MaterialTheme.colors.background),
             state = HistoryUiState(),
             onUrlChanged = {},
-            onPrimaryButtonClick = {}
+            onPrimaryButtonClick = {},
+            onDeleteAction = {}
         )
     }
 }
@@ -64,7 +65,8 @@ fun MainScreen(
                     .navigationBarsPadding(),
                 state = stateFlow,
                 onUrlChanged = viewModel::onUrlChanged,
-                onPrimaryButtonClick = viewModel::onShortenUrl
+                onPrimaryButtonClick = viewModel::onShortenUrl,
+                onDeleteAction = viewModel::onDeleteLink
             )
         }
     )
@@ -75,7 +77,8 @@ private fun MainContent(
     modifier: Modifier = Modifier,
     state: HistoryUiState,
     onUrlChanged: (String) -> Unit,
-    onPrimaryButtonClick: () -> Unit
+    onPrimaryButtonClick: () -> Unit,
+    onDeleteAction: (String) -> Unit
 ) {
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
@@ -85,13 +88,15 @@ private fun MainContent(
         modifier = modifier,
         state = state,
         onUrlChanged = onUrlChanged,
-        onPrimaryButtonClick = onPrimaryButtonClick
+        onPrimaryButtonClick = onPrimaryButtonClick,
+        onDeleteAction = onDeleteAction
     )
     else InPortrait(
         modifier = modifier,
         state = state,
         onUrlChanged = onUrlChanged,
-        onPrimaryButtonClick = onPrimaryButtonClick
+        onPrimaryButtonClick = onPrimaryButtonClick,
+        onDeleteAction = onDeleteAction
     )
 }
 
@@ -100,7 +105,8 @@ private fun InPortrait(
     modifier: Modifier,
     state: HistoryUiState,
     onUrlChanged: (String) -> Unit,
-    onPrimaryButtonClick: () -> Unit
+    onPrimaryButtonClick: () -> Unit,
+    onDeleteAction: (String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -110,7 +116,8 @@ private fun InPortrait(
         // takes 75% of visible space
         HistoryContent(
             modifier = Modifier.fillMaxHeight(.75f),
-            state = state
+            state = state,
+            onDeleteAction = onDeleteAction
         )
         // takes 25% of visible space
         FooterContent(
@@ -127,7 +134,8 @@ private fun InLandscape(
     modifier: Modifier,
     state: HistoryUiState,
     onUrlChanged: (String) -> Unit,
-    onPrimaryButtonClick: () -> Unit
+    onPrimaryButtonClick: () -> Unit,
+    onDeleteAction: (String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -137,7 +145,8 @@ private fun InLandscape(
     ) {
         HistoryContent(
             modifier = Modifier.wrapContentHeight(),
-            state = state
+            state = state,
+            onDeleteAction = onDeleteAction
         )
         FooterContent(
             modifier = Modifier.heightIn(min = 245.dp),

@@ -29,7 +29,8 @@ private fun PreviewGetStarted() {
             .background(MaterialTheme.colors.backgroundSecondary)) {
         HistoryContent(
             modifier = Modifier.fillMaxHeight(.75f),
-            state = HistoryUiState()
+            state = HistoryUiState(),
+            onDeleteAction = {}
         )
     }
 }

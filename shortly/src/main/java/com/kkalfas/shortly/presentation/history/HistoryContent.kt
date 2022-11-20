@@ -29,6 +29,7 @@ import com.kkalfas.shortly.presentation.theme.backgroundSecondary
 @Composable
 private fun PreviewHistory() {
     val linkModel = LinkEntryModel(
+        code = "d78tda",
         short = "https://short.link/d78tda",
         original = "https://wow.com/such/a/long/url/much/wow"
     )
@@ -43,7 +44,8 @@ private fun PreviewHistory() {
                 state = HistoryUiState(
                     urlInput = "",
                     history = listOf(linkModel, linkModel, linkModel)
-                )
+                ),
+                onDeleteAction = {}
             )
         }
     }
@@ -52,7 +54,8 @@ private fun PreviewHistory() {
 @Composable
 fun HistoryContent(
     modifier: Modifier,
-    state: HistoryUiState
+    state: HistoryUiState,
+    onDeleteAction: (String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -61,13 +64,17 @@ fun HistoryContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (state.history.isEmpty()) GetStarted()
-        else LinkHistory(history = state.history)
+        else LinkHistory(
+            history = state.history,
+            onDeleteAction = onDeleteAction
+        )
     }
 }
 
 @Composable
 private fun LinkHistory(
     history: List<LinkEntryModel>,
+    onDeleteAction: (String) -> Unit
 ) {
     Spacer(modifier = Modifier.height(4.dp))
     Body1(text = stringResource(id = R.string.history_title))
@@ -75,6 +82,11 @@ private fun LinkHistory(
         contentPadding = PaddingValues(horizontal = 25.dp, vertical = 20.dp),
         verticalArrangement = Arrangement.spacedBy(20.dp),
     ) {
-        items(history) { item -> LinkCard(linkEntity = item) }
+        items(history) { item ->
+            LinkCard(
+                linkEntity = item,
+                onDeleteAction = onDeleteAction
+            )
+        }
     }
 }

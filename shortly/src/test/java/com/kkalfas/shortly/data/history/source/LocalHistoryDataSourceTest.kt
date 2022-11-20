@@ -66,8 +66,10 @@ class LocalHistoryDataSourceTest : MockkTest() {
         runBlocking {
             flow.collect {
                 assertThat(it.size).isEqualTo(2)
+                assertThat(it[0].code).isEqualTo(link0.code)
                 assertThat(it[0].original).isEqualTo(link0.original)
                 assertThat(it[0].short).isEqualTo(link0.shorted)
+                assertThat(it[1].code).isEqualTo(link1.code)
                 assertThat(it[1].original).isEqualTo(link1.original)
                 assertThat(it[1].short).isEqualTo(link1.shorted)
             }

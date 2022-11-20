@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.kkalfas.shortly.AppCoroutineDispatchers
 import com.kkalfas.shortly.R
 import com.kkalfas.shortly.data.ShrtcoApiError
+import com.kkalfas.shortly.domain.history.usecase.DeleteLinkUseCase
 import com.kkalfas.shortly.domain.history.usecase.GetLinkHistoryUseCase
 import com.kkalfas.shortly.domain.history.usecase.ShortenUrlUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +27,8 @@ class HistoryViewModel @Inject constructor(
     private val appCoroutineDispatchers: AppCoroutineDispatchers,
     private val savedStateHandle: SavedStateHandle,
     private val shortenUrlUseCase: ShortenUrlUseCase,
-    private val linkHistoryUseCase: GetLinkHistoryUseCase
+    private val linkHistoryUseCase: GetLinkHistoryUseCase,
+    private val deleteLinkUseCase: DeleteLinkUseCase
 ) : ViewModel() {
 
     private val _inputValue = savedStateHandle.getStateFlow(STATE_KEY_INPUT_VALUE, "")
@@ -68,6 +70,12 @@ class HistoryViewModel @Inject constructor(
                     else -> savedStateHandle[STATE_KEY_ERROR_MESSAGE] = R.string.error_generic_message
                 }
             }
+        }
+    }
+
+    fun onDeleteLink(code: String) {
+        viewModelScope.launch(appCoroutineDispatchers.io) {
+            deleteLinkUseCase(code)
         }
     }
 

@@ -28,7 +28,11 @@ class LocalHistoryDataSource @Inject constructor(
     override fun getLinkHistory(): Flow<List<LinkEntryModel>> {
         return databaseAdapter.getLinkHistoryStream().map { all ->
             all.map {
-                LinkEntryModel(it.shorted, it.original)
+                LinkEntryModel(
+                    code = it.code,
+                    short = it.shorted,
+                    original = it.original
+                )
             }
         }
     }

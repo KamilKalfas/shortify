@@ -1,6 +1,7 @@
 package com.kkalfas.shortly.presentation.history
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,9 +37,11 @@ private fun PreviewEmptyHistoryContent() {
     ShortlyTheme {
         LinkCard(
             linkEntity = LinkEntryModel(
+                code = "sh0rt",
                 original = "http://somewhere.on/the/intra/webz",
                 short = "http://its.so/sh0rt"
-            )
+            ),
+            onDeleteAction = {}
         )
     }
 }
@@ -46,7 +49,8 @@ private fun PreviewEmptyHistoryContent() {
 @Composable
 fun LinkCard(
     modifier: Modifier = Modifier,
-    linkEntity: LinkEntryModel
+    linkEntity: LinkEntryModel,
+    onDeleteAction: (String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -66,7 +70,9 @@ fun LinkCard(
                 text = linkEntity.original
             )
             Icon(
-                modifier = Modifier.heightIn(max = 22.dp),
+                modifier = Modifier.heightIn(max = 22.dp).clickable {
+                    onDeleteAction(linkEntity.code)
+                },
                 painter = painterResource(id = R.drawable.ic_del),
                 contentDescription = "delete"
             )
