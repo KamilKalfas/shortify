@@ -35,12 +35,28 @@ class HistoryRoomDbAdapterTest : MockkTest() {
             shorted = "b/a"
         )
         // when
-        val result = runBlocking { subject.saveLink(entity) }
+        runBlocking { subject.saveLink(entity) }
 
         // then
         coVerify {
             historyDao.insertLink(capture(slotEntity))
         }
         assertThat(entity).isEqualTo(slotEntity.captured)
+    }
+
+    @Test
+    fun `when deleteLink then dao deleteLinkById method called`() {
+        // given
+        val slotCode = slot<String>()
+        val code = "aaa"
+
+        // when
+        runBlocking { subject.deleteLink(code) }
+
+        // then
+        coVerify {
+            historyDao.deleteLinkById(capture(slotCode))
+        }
+        assertThat(slotCode.captured).isEqualTo(code)
     }
 }

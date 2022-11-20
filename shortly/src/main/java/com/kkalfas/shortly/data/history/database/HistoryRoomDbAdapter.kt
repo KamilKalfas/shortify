@@ -11,4 +11,6 @@ class HistoryRoomDbAdapter @Inject constructor(
     override fun getLinkHistoryStream(): Flow<List<LinkHistoryEntity>> = historyDao.observeHistory()
 
     override suspend fun saveLink(link: LinkHistoryEntity): Unit = historyDao.insertLink(link)
+
+    override suspend fun deleteLink(code: String) = historyDao.deleteLinkById(code)
 }

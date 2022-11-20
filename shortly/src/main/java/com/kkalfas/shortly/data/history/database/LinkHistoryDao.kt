@@ -15,5 +15,7 @@ interface LinkHistoryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertLink(link: LinkHistoryEntity)
-}
 
+    @Query("DELETE FROM link_history WHERE uuid = :code")
+    suspend fun deleteLinkById(code: String): Int
+}

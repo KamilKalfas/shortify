@@ -8,4 +8,6 @@ interface HistoryDatabaseAdapter {
     fun getLinkHistoryStream() : Flow<List<LinkHistoryEntity>>
 
     suspend fun saveLink(link: LinkHistoryEntity)
+
+    suspend fun deleteLink(code: String) : Int
 }
