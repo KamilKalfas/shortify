@@ -29,7 +29,6 @@ import com.kkalfas.shortly.presentation.components.text.InputField
 @Composable
 fun FooterContent(
     modifier: Modifier = Modifier,
-    isLandscape: Boolean = false,
     inputValue: String,
     isInputError: Boolean,
     onInputChanged: (String) -> Unit,
@@ -46,13 +45,12 @@ fun FooterContent(
     )
     Column(
         modifier = modifier
-            .fillMaxSize()
             .background(MaterialTheme.colors.secondary)
             .paint(
                 painterResource(id = R.drawable.ic_shape),
                 alignment = Alignment.TopEnd
             )
-            .padding(horizontal = if (isLandscape) 120.dp else 48.dp),
+            .padding(horizontal = 48.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

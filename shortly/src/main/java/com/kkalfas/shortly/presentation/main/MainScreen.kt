@@ -3,26 +3,25 @@ package com.kkalfas.shortly.presentation.main
 import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.kkalfas.shortly.presentation.components.FooterContent
 import com.kkalfas.shortly.presentation.history.HistoryContent
@@ -31,12 +30,29 @@ import com.kkalfas.shortly.presentation.history.HistoryViewModel
 import com.kkalfas.shortly.presentation.theme.ShortlyTheme
 import com.kkalfas.shortly.presentation.theme.backgroundSecondary
 
+
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
 private fun PreviewMainContent() {
     ShortlyTheme {
         MainContent(
             modifier = Modifier.background(MaterialTheme.colors.background),
+            isLandscape = false,
+            state = HistoryUiState(),
+            onUrlChanged = {},
+            onPrimaryButtonClick = {},
+            onDeleteAction = {}
+        )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 812, heightDp = 375)
+@Composable
+private fun PreviewMainContentLandscape() {
+    ShortlyTheme {
+        MainContent(
+            modifier = Modifier.background(MaterialTheme.colors.background),
+            isLandscape = true,
             state = HistoryUiState(),
             onUrlChanged = {},
             onPrimaryButtonClick = {},
@@ -56,6 +72,8 @@ fun MainScreen(
         Toast.makeText(LocalContext.current, message, Toast.LENGTH_SHORT).show()
         viewModel.clearError()
     }
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     Scaffold(
         drawerGesturesEnabled = false,
         content = { innerPadding ->
@@ -63,6 +81,7 @@ fun MainScreen(
                 modifier = modifier
                     .padding(innerPadding)
                     .navigationBarsPadding(),
+                isLandscape = isLandscape,
                 state = stateFlow,
                 onUrlChanged = viewModel::onUrlChanged,
                 onPrimaryButtonClick = viewModel::onShortenUrl,
@@ -75,15 +94,12 @@ fun MainScreen(
 @Composable
 private fun MainContent(
     modifier: Modifier = Modifier,
+    isLandscape: Boolean,
     state: HistoryUiState,
     onUrlChanged: (String) -> Unit,
     onPrimaryButtonClick: () -> Unit,
     onDeleteAction: (String) -> Unit
 ) {
-    val configuration = LocalConfiguration.current
-    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-            && configuration.screenWidthDp > 550
-
     if (isLandscape) InLandscape(
         modifier = modifier,
         state = state,
@@ -121,6 +137,7 @@ private fun InPortrait(
         )
         // takes 25% of visible space
         FooterContent(
+            modifier = Modifier.fillMaxSize(),
             inputValue = state.urlInput,
             isInputError = state.isInputError,
             onInputChanged = onUrlChanged,
@@ -137,20 +154,20 @@ private fun InLandscape(
     onPrimaryButtonClick: () -> Unit,
     onDeleteAction: (String) -> Unit
 ) {
-    Column(
+    Row(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .background(MaterialTheme.colors.backgroundSecondary)
+            .background(MaterialTheme.colors.backgroundSecondary),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         HistoryContent(
-            modifier = Modifier.wrapContentHeight(),
+            modifier = Modifier.fillMaxWidth(.5f),
             state = state,
             onDeleteAction = onDeleteAction
         )
         FooterContent(
-            modifier = Modifier.heightIn(min = 245.dp),
-            isLandscape = true,
+            modifier = Modifier.fillMaxSize(),
             inputValue = state.urlInput,
             isInputError = state.isInputError,
             onInputChanged = onUrlChanged,

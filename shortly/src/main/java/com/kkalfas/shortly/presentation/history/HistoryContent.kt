@@ -58,9 +58,7 @@ fun HistoryContent(
     onDeleteAction: (String) -> Unit
 ) {
     Column(
-        modifier = modifier
-            .statusBarsPadding()
-            .fillMaxWidth(),
+        modifier = modifier.statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (state.history.isEmpty()) GetStarted()
