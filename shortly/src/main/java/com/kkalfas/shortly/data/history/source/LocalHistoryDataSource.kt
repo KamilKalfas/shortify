@@ -1,6 +1,8 @@
 package com.kkalfas.shortly.data.history.source
 
+import com.kkalfas.shortly.data.FunctionalityNotAvailable
 import com.kkalfas.shortly.data.history.database.HistoryDatabaseAdapter
+import com.kkalfas.shortly.data.history.database.model.LinkHistoryEntity
 import com.kkalfas.shortly.data.history.model.LinkEntryModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -12,12 +14,17 @@ class LocalHistoryDataSource @Inject constructor(
 
     override suspend fun shortenUrl(url: String) {
         // noop for Local
+        throw FunctionalityNotAvailable()
+    }
+
+    override suspend fun saveLink(link: LinkHistoryEntity) {
+        databaseAdapter.saveLink(link)
     }
 
     override fun getLinkHistory(): Flow<List<LinkEntryModel>> {
         return databaseAdapter.getLinkHistoryStream().map { all ->
             all.map {
-                LinkEntryModel(it.short, it.original)
+                LinkEntryModel(it.shorted, it.original)
             }
         }
     }
