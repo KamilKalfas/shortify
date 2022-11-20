@@ -8,6 +8,7 @@ import com.kkalfas.shortly.data.history.database.model.LinkHistoryEntity
 abstract class AppDatabase : RoomDatabase() {
     companion object {
         const val VERSION = 1
+        const val NAME = "shortly_database"
     }
 
     abstract fun linkHistoryDao(): LinkHistoryDao
