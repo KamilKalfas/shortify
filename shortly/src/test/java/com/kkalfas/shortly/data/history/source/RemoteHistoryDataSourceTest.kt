@@ -94,4 +94,10 @@ class RemoteHistoryDataSourceTest : MockkTest() {
         // when
         runBlocking { subject.getLinkHistory() }
     }
+
+    @Test(expected = FunctionalityNotAvailable::class)
+    fun `when deleteLink called then FunctionalityNotAvailable exception thrown`() {
+        // when
+        runBlocking { subject.deleteLink("aaa") }
+    }
 }

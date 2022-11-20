@@ -21,6 +21,10 @@ class LocalHistoryDataSource @Inject constructor(
         databaseAdapter.saveLink(link)
     }
 
+    override suspend fun deleteLink(code: String) {
+        databaseAdapter.deleteLink(code)
+    }
+
     override fun getLinkHistory(): Flow<List<LinkEntryModel>> {
         return databaseAdapter.getLinkHistoryStream().map { all ->
             all.map {

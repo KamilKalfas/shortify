@@ -9,7 +9,11 @@ import javax.inject.Inject
 import javax.inject.Named
 
 interface HistoryRepository {
+
     suspend fun shortenUrl(url: String)
+
+    suspend fun deleteLink(code: String)
+
     fun getLinkHistoryStream() : Flow<List<LinkEntryModel>>
 
     class Impl @Inject constructor(
@@ -18,6 +22,8 @@ interface HistoryRepository {
     ) : HistoryRepository {
 
         override suspend fun shortenUrl(url: String) = remoteDataSource.shortenUrl(url)
+
+        override suspend fun deleteLink(code: String) = localDataSource.deleteLink(code)
 
         override fun getLinkHistoryStream(): Flow<List<LinkEntryModel>> = localDataSource.getLinkHistory()
     }

@@ -4,6 +4,7 @@ import com.kkalfas.shortly.data.history.source.HistoryDataSource
 import com.kkalfas.shortly.mocks.MockkTest
 import io.mockk.coVerify
 import io.mockk.slot
+import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
@@ -27,6 +28,42 @@ class HistoryRepositoryTest : MockkTest() {
         coVerify {
             remoteDataSource.shortenUrl(capture(slotUrl))
         }
+        coVerify(exactly = 0) {
+            localDataSource.shortenUrl(any())
+        }
         assertThat(slotUrl.captured).isEqualTo(givenUrl)
+    }
+
+    @Test
+    fun `when deleteLink called then local data source is called`() {
+        // given
+        val code = "asdw"
+        val slotCode = slot<String>()
+
+        // given
+        runBlocking { subject.deleteLink(code) }
+
+        // then
+        coVerify {
+            localDataSource.deleteLink(capture(slotCode))
+        }
+        coVerify(exactly = 0) {
+            remoteDataSource.deleteLink(any())
+        }
+        assertThat(slotCode.captured).isEqualTo(code)
+    }
+
+    @Test
+    fun `when getLinkHistoryStream called local data source is called`() {
+        // when
+        subject.getLinkHistoryStream()
+
+        // then
+        verify {
+            localDataSource.getLinkHistory()
+        }
+        verify(exactly = 0) {
+            remoteDataSource.getLinkHistory()
+        }
     }
 }

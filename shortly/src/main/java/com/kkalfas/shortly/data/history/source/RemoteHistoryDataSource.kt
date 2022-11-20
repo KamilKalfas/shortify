@@ -33,6 +33,11 @@ class RemoteHistoryDataSource @Inject constructor(
         throw FunctionalityNotAvailable()
     }
 
+    override suspend fun deleteLink(code: String) {
+        // noop for Remote
+        throw FunctionalityNotAvailable()
+    }
+
     override fun getLinkHistory(): Flow<List<LinkEntryModel>> {
         // noop for Remote
         throw FunctionalityNotAvailable()

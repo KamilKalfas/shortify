@@ -10,5 +10,7 @@ interface HistoryDataSource {
 
     suspend fun saveLink(link: LinkHistoryEntity)
 
+    suspend fun deleteLink(code: String)
+
     fun getLinkHistory() : Flow<List<LinkEntryModel>>
 }

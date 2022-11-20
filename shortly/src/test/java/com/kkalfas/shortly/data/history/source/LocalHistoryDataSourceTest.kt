@@ -76,4 +76,18 @@ class LocalHistoryDataSourceTest : MockkTest() {
             databaseAdapter.getLinkHistoryStream()
         }
     }
+
+    @Test
+    fun `when deleteLink then database adapter deleteLink is called`() {
+        // given
+        val slotCode = slot<String>()
+        val code = "aaa"
+
+        // when
+        runBlocking { subject.deleteLink(code) }
+
+        // then
+        coVerify { databaseAdapter.deleteLink(capture(slotCode)) }
+        assertThat(slotCode.captured).isEqualTo(code)
+    }
 }
