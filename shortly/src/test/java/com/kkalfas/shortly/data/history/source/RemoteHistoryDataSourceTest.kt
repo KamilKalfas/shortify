@@ -3,6 +3,7 @@ package com.kkalfas.shortly.data.history.source
 import com.kkalfas.shortly.data.history.api.ShrtcoApi
 import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResponse
 import com.kkalfas.shortly.data.history.api.model.ShrtcoApiResult
+import com.kkalfas.shortly.data.history.database.HistoryDatabaseAdapter
 import com.kkalfas.shortly.mocks.MockkTest
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -14,7 +15,8 @@ import org.junit.Test
 class RemoteHistoryDataSourceTest : MockkTest() {
 
     private val api: ShrtcoApi = mockk()
-    private val subject = RemoteHistoryDataSource(api)
+    private val databaseAdapter : HistoryDatabaseAdapter = mockk()
+    private val subject = RemoteHistoryDataSource(api, databaseAdapter)
 
     @Test
     fun `given API returns response when shortenUrl then return mapped object`() {
