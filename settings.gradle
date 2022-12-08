@@ -12,5 +12,4 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "shortly-app-cufjpd"
 include ':shortly'
