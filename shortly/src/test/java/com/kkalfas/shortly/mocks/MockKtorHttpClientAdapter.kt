@@ -1,8 +1,8 @@
 package com.kkalfas.shortly.mocks
 
-import com.kkalfas.shortly.KtorHttpClientAdapter
-import com.kkalfas.shortly.installDefaultHeaders
-import com.kkalfas.shortly.installJSONSerialization
+import com.kkalfas.shortly.app.KtorHttpClientAdapter
+import com.kkalfas.shortly.app.installDefaultHeaders
+import com.kkalfas.shortly.app.installJSONSerialization
 import com.kkalfas.shortly.mocks.response.ShortenUrlMockResponse
 import io.ktor.client.*
 import io.ktor.client.engine.mock.*

@@ -1,6 +1,6 @@
 package com.kkalfas.shortly.di
 
-import com.kkalfas.shortly.data.history.api.ShrtcoApi
+import com.kkalfas.shortly.history.data.api.ShrtcoApi
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

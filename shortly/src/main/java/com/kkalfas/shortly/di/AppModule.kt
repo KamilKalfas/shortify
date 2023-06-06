@@ -1,7 +1,7 @@
 package com.kkalfas.shortly.di
 
-import com.kkalfas.shortly.AppCoroutineDispatchers
-import com.kkalfas.shortly.KtorHttpClientAdapter
+import com.kkalfas.shortly.app.KtorHttpClientAdapter
+import com.kkalfas.shortly.app.data.AppCoroutineDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -2,10 +2,10 @@ package com.kkalfas.shortly.di
 
 import android.content.Context
 import androidx.room.Room
-import com.kkalfas.shortly.data.history.database.AppDatabase
-import com.kkalfas.shortly.data.history.database.HistoryDatabaseAdapter
-import com.kkalfas.shortly.data.history.database.HistoryRoomDbAdapter
-import com.kkalfas.shortly.data.history.database.LinkHistoryDao
+import com.kkalfas.shortly.history.data.database.AppDatabase
+import com.kkalfas.shortly.history.domain.HistoryDatabaseAdapter
+import com.kkalfas.shortly.history.data.database.HistoryRoomDbAdapter
+import com.kkalfas.shortly.history.data.database.LinkHistoryDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
